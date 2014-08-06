@@ -21,18 +21,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.google</groupId>
-        <artifactId>digitalcoinj-parent</artifactId>
+        <artifactId>omnicoinj-parent</artifactId>
         <version>0.12-SNAPSHOT</version>
     </parent>
 
-    <artifactId>digitalcoinj</artifactId>
+    <artifactId>omnicoinj</artifactId>
 
-    <name>digitalcoinj</name>
-    <description>A Java digitalcoin library</description>
+    <name>omnicoinj</name>
+    <description>A Java omnicoin library</description>
 
     <packaging>jar</packaging>
 
-    <url>https://code.google.com/p/bitcoinj</url>
+    <url>https://github.com/MeshCollider/omnicoinj</url>
 
     <licenses>
         <license>
