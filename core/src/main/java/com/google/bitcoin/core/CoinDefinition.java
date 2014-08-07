@@ -15,9 +15,9 @@ import java.util.Vector;
 public class CoinDefinition {
 
 
-    public static final String coinName = "digitalcoin";
-    public static final String coinTicker = "DGC";
-    public static final String coinURIScheme = "digitalcoin";
+    public static final String coinName = "omnicoin";
+    public static final String coinTicker = "OMC";
+    public static final String coinURIScheme = "omnicoin";
     public static final String cryptsyMarketId = "26";
     public static final String cryptsyMarketCurrency = "BTC";
     public static final String PATTERN_PRIVATE_KEY_START = "6";
@@ -31,7 +31,7 @@ public class CoinDefinition {
     public static final CoinPrecision coinPrecision = CoinPrecision.Coins;
 
 
-    public static final String BLOCKEXPLORER_BASE_URL_PROD = "http://dgc.blockr.io/";    //blockr.io
+    public static final String BLOCKEXPLORER_BASE_URL_PROD = "https://omnicha.in/api/";    //blockr.io
     public static final String BLOCKEXPLORER_ADDRESS_PATH = "address/info/";             //blockr.io path
     public static final String BLOCKEXPLORER_TRANSACTION_PATH = "tx/info/";              //blockr.io path
     public static final String BLOCKEXPLORER_BLOCK_PATH = "block/info/";                 //blockr.io path
