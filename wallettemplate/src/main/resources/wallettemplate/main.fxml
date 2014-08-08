@@ -2,8 +2,9 @@
 
 <?scenebuilder-classpath-element ../../../../target/classes?>
 
-<?scenebuilder-classpath-element ../../../../../core/target/digitalcoinj-0.12-SNAPSHOT.jar?>
+<?scenebuilder-classpath-element ../../../../../core/target/omnicoinj-0.12-SNAPSHOT.jar?>
 
+<?import java.lang.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>

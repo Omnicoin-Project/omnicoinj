@@ -27,7 +27,7 @@
 
     <artifactId>omnicoinj-examples</artifactId>
 
-    <name>digitalcoinj Examples</name>
+    <name>omnicoinj Examples</name>
     <description>A collection of examples using the omnicoinj library</description>
 
     <dependencies>
