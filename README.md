@@ -39,3 +39,5 @@ Things that still need updating:
 * NetworkParamters.java
 * Developer information in AUTHORS
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\Peer.java ?
+
+Developed by MeshCollider. See AUTHORS for credits.
