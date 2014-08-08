@@ -31,10 +31,10 @@ public class CoinDefinition {
     public static final CoinPrecision coinPrecision = CoinPrecision.Coins;
 
 
-    public static final String BLOCKEXPLORER_BASE_URL_PROD = "https://omnicha.in/api/";    //blockr.io
-    public static final String BLOCKEXPLORER_ADDRESS_PATH = "address/info/";             //blockr.io path
-    public static final String BLOCKEXPLORER_TRANSACTION_PATH = "tx/info/";              //blockr.io path
-    public static final String BLOCKEXPLORER_BLOCK_PATH = "block/info/";                 //blockr.io path
+    public static final String BLOCKEXPLORER_BASE_URL_PROD = "https://omnicha.in/";    //blockr.io
+    public static final String BLOCKEXPLORER_ADDRESS_PATH = "?address=";             //blockr.io path
+    public static final String BLOCKEXPLORER_TRANSACTION_PATH = "?transaction=";              //blockr.io path
+    public static final String BLOCKEXPLORER_BLOCK_PATH = "?block=";                 //blockr.io path
     public static final String BLOCKEXPLORER_BASE_URL_TEST = BLOCKEXPLORER_BASE_URL_PROD;
 
     public static final String DONATION_ADDRESS = "oMeshU9A7psVWNajjzdogeaRmY2xaGMuRA";  //MeshColliders OMC donation address
