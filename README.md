@@ -37,6 +37,5 @@ Now you are ready to follow the tutorial:
 Things that still need updating:
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
 * omnicoinj\blob\master\core\src\main\java\com\google\bitcoin\core\NetworkParameters.java
-* omnicoinj\core\src\main\java\com\google\bitcoin\core\Peer.java ?
 
 Developed by MeshCollider. See AUTHORS for credits.
