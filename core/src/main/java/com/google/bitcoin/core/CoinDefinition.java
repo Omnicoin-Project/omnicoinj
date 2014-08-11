@@ -136,7 +136,7 @@ public class CoinDefinition {
 
     //Genesis Block Information from main.cpp: LoadBlockIndex
     static public long genesisBlockDifficultyTarget = (0x1e0ffff0L);         //main.cpp: LoadBlockIndex
-    static public long genesisBlockTime = 1367867384L;                       //main.cpp: LoadBlockIndex
+    static public long genesisBlockTime = 1388880557L;                       //main.cpp: LoadBlockIndex
     static public long genesisBlockNonce = (751211697);                         //main.cpp: LoadBlockIndex
     static public String genesisHash = "721abe3814e15f1ab50514c8b7fffa7578c1f35aa915275ee91f4cb8d02be5c4"; //main.cpp: hashGenesisBlock
     static public int genesisBlockValue = 50;                                                              //main.cpp: LoadBlockIndex
