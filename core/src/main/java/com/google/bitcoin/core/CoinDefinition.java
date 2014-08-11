@@ -123,8 +123,8 @@ public class CoinDefinition {
         return PROTOCOL_VERSION <= 70000;
     }
 
-    public static final int Port    = 7999;       //protocol.h GetDefaultPort(testnet=false)
-    public static final int TestPort = 17999;     //protocol.h GetDefaultPort(testnet=true)
+    public static final int Port    = 43555;       //protocol.h GetDefaultPort(testnet=false)
+    public static final int TestPort = 43557;     //protocol.h GetDefaultPort(testnet=true)
 
     //
     //  Production
