@@ -36,5 +36,6 @@ Now you are ready to follow the tutorial:
 
 Things that still need updating:
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
+* The checkDifficultyTransitions method must be updated in AbstractBlockChain to match the GetNextWorkRequired function in the C++ code
 
 Developed by MeshCollider. See AUTHORS for credits.
