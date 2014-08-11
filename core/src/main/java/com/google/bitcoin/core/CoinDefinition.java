@@ -258,12 +258,11 @@ public class CoinDefinition {
     public static void initCheckpoints(Map<Integer, Sha256Hash> checkpoints)
     {
         checkpoints.put( 0, new Sha256Hash("721abe3814e15f1ab50514c8b7fffa7578c1f35aa915275ee91f4cb8d02be5c4"));
-        /*checkpoints.put( 1, new Sha256Hash("45b2559dbe5e5772498e4170f3f1561448179fa90dd349e60e891766878dea2e"));
-        checkpoints.put( 20, new Sha256Hash("59436aad777d285d52a3fb61b4176c7ca30a1254b7fc1480b2c7320913953fe3"));
-        checkpoints.put( 3500, new Sha256Hash("6e92c6cf634c39149d07f022cf13e87b91713d1e7a5d9abc2b5f3646a4027838"));
-        checkpoints.put( 22222, new Sha256Hash("7a58919a24c189f8c286413381e6ed7224c90a4181a7f7cd098825cc75ddec27"));
-        checkpoints.put( 480000, new Sha256Hash("a11759fa9ed9c11769dc7ec3c279f523c886ea0ca0b9e1d1a49441c32b701f0d"));
-        checkpoints.put( 600308, new Sha256Hash("0cd7f68e0e79a4595abb871fb71fd2db803b34b15da182d23c1568f56611af91"));*/
+        checkpoints.put( 1, new Sha256Hash("e4a260c77abf60959a6be3f2058039fe12cb9be924b4be9fe12c95d9133b73ec"));
+        checkpoints.put( 20, new Sha256Hash("b83b8d949773f345b71f3380d5ac21e20d845a92502abb6a18a1d0f2ebf97ef3"));
+        checkpoints.put( 3500, new Sha256Hash("9197cc7b26e68454de896d174ea10e604b83e060499cd340c3ef38a03de220a6"));
+        checkpoints.put( 22222, new Sha256Hash("df1092e6465272939beb25a4550934a690c15ac8c5e3075a967e0860e73974d0"));
+        checkpoints.put( 60580, new Sha256Hash("7c81dd9e1b6155f6c7dadf4d245539016fc71bbf3a522f069117ce6c64f47f2b"));
     }
 
     //Unit Test Information
