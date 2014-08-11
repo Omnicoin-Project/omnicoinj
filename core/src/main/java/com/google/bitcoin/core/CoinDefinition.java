@@ -138,7 +138,7 @@ public class CoinDefinition {
     static public long genesisBlockDifficultyTarget = (0x1e0ffff0L);         //main.cpp: LoadBlockIndex
     static public long genesisBlockTime = 1367867384L;                       //main.cpp: LoadBlockIndex
     static public long genesisBlockNonce = (672176);                         //main.cpp: LoadBlockIndex
-    static public String genesisHash = "5e039e1ca1dbf128973bf6cff98169e40a1b194c3b91463ab74956f413b2f9c8"; //main.cpp: hashGenesisBlock
+    static public String genesisHash = "721abe3814e15f1ab50514c8b7fffa7578c1f35aa915275ee91f4cb8d02be5c4"; //main.cpp: hashGenesisBlock
     static public int genesisBlockValue = 50;                                                              //main.cpp: LoadBlockIndex
     //taken from the raw data of the block explorer
     static public String genesisTxInBytes = "04ffff001d0104294469676974616c636f696e2c20412043757272656e637920666f722061204469676974616c20416765";   //"Omnicoin, A Currency for a Digital Age"
