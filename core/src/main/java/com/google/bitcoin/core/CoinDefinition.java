@@ -132,7 +132,7 @@ public class CoinDefinition {
     public static final int AddressHeader = 30;             //base58.h CBitcoinAddress::PUBKEY_ADDRESS
     public static final int p2shHeader = 5;             //base58.h CBitcoinAddress::SCRIPT_ADDRESS
     public static final boolean allowBitcoinPrivateKey = true; //for backward compatibility with previous version of omnicoin
-    public static final long PacketMagic = 0xfbc0b6db;      //0xfb, 0xc0, 0xb6, 0xdb
+    public static final long PacketMagic = 0xd4cba1ef;      //0xd4, 0xcb, 0xa1, 0xef
 
     //Genesis Block Information from main.cpp: LoadBlockIndex
     static public long genesisBlockDifficultyTarget = (0x1e0ffff0L);         //main.cpp: LoadBlockIndex
