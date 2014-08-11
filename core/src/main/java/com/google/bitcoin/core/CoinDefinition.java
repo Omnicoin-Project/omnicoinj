@@ -129,7 +129,7 @@ public class CoinDefinition {
     //
     //  Production
     //
-    public static final int AddressHeader = 30;             //base58.h CBitcoinAddress::PUBKEY_ADDRESS
+    public static final int AddressHeader = 115;             //base58.h CBitcoinAddress::PUBKEY_ADDRESS
     public static final int p2shHeader = 5;             //base58.h CBitcoinAddress::SCRIPT_ADDRESS
     public static final boolean allowBitcoinPrivateKey = true; //for backward compatibility with previous version of omnicoin
     public static final long PacketMagic = 0xd4cba1ef;      //0xd4, 0xcb, 0xa1, 0xef
