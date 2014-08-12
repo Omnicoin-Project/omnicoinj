@@ -104,9 +104,9 @@ public class CoinDefinition {
         else
             return value * 55 / 73;
     }
-    public static int spendableCoinbaseDepth = 5; //main.h: static const int COINBASE_MATURITY
-    public static final BigInteger MAX_MONEY = BigInteger.valueOf(200000000).multiply(Utils.COIN);                 //main.h:  MAX_MONEY
-    //public static final String MAX_MONEY_STRING = "200000000";     //main.h:  MAX_MONEY
+    public static int spendableCoinbaseDepth = 40; //main.h: static const int COINBASE_MATURITY
+    public static final BigInteger MAX_MONEY = BigInteger.valueOf(13371337).multiply(Utils.COIN);                 //main.h:  MAX_MONEY
+    //public static final String MAX_MONEY_STRING = "13371337";     //main.h:  MAX_MONEY
 
     public static final BigInteger DEFAULT_MIN_TX_FEE = BigInteger.valueOf(10000000);   // MIN_TX_FEE
     public static final BigInteger DUST_LIMIT = Utils.CENT; //main.h CTransaction::GetMinFee        0.01 coins
@@ -139,7 +139,7 @@ public class CoinDefinition {
     static public long genesisBlockTime = 1388880557L;                       //main.cpp: LoadBlockIndex
     static public long genesisBlockNonce = (751211697);                         //main.cpp: LoadBlockIndex
     static public String genesisHash = "721abe3814e15f1ab50514c8b7fffa7578c1f35aa915275ee91f4cb8d02be5c4"; //main.cpp: hashGenesisBlock
-    static public int genesisBlockValue = 50;                                                              //main.cpp: LoadBlockIndex
+    static public int genesisBlockValue = 88;                                                              //main.cpp: LoadBlockIndex
     //taken from the raw data of the block explorer
     static public String genesisTxInBytes = "04ffff001d0104294469676974616c636f696e2c20412043757272656e637920666f722061204469676974616c20416765";   //"Omnicoin, A Currency for a Digital Age"
     static public String genesisTxOutBytes = "04a5814813115273a109cff99907ba4a05d951873dae7acb6c973d0c9e7c88911a3dbc9aa600deac241b91707e7b4ffb30ad91c8e56e695a1ddf318592988afe0a";
