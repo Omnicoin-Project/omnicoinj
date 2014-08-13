@@ -257,7 +257,7 @@ public class CoinDefinition {
     public static final String TESTNET_SATOSHI_KEY = "";
 
     /** The string returned by getId() for the main, production network where people trade things. */
-    public static final String ID_MAINNET = "org.omnilcoin.production";
+    public static final String ID_MAINNET = "org.omnicoin.production";
     /** The string returned by getId() for the testnet. */
     public static final String ID_TESTNET = "org.omnicoin.test";
     /** Unit test network. */
