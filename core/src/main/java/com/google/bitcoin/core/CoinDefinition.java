@@ -160,7 +160,15 @@ public class CoinDefinition {
             //"dnsseed.rc.altcointech.net",
             "54.208.77.156",
             "68.14.170.140",
-
+            
+            /*
+            172.245.39.121
+            151.228.222.25
+            198.100.155.248
+            192.99.42.164
+            192.99.42.206
+            192.99.42.238
+            */
     };
 
     public static int minBroadcastConnections = 1;   //0 for default; we need more peers.
