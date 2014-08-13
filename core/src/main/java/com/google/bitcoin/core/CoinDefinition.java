@@ -248,11 +248,11 @@ public class CoinDefinition {
     public static final String TESTNET_SATOSHI_KEY = "";
 
     /** The string returned by getId() for the main, production network where people trade things. */
-    public static final String ID_MAINNET = "org.digitalcoin.production";
+    public static final String ID_MAINNET = "org.omnilcoin.production";
     /** The string returned by getId() for the testnet. */
-    public static final String ID_TESTNET = "org.digitalcoin.test";
+    public static final String ID_TESTNET = "org.omnicoin.test";
     /** Unit test network. */
-    public static final String ID_UNITTESTNET = "com.google.digitalcoin.unittest";
+    public static final String ID_UNITTESTNET = "com.google.omnicoin.unittest";
 
     //checkpoints.cpp Checkpoints::mapCheckpoints
     public static void initCheckpoints(Map<Integer, Sha256Hash> checkpoints)
