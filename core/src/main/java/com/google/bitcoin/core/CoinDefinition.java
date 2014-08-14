@@ -123,11 +123,16 @@ public class CoinDefinition {
         return PROTOCOL_VERSION <= 70000;
     }
 
-    public static final int Port    = 14872;       //protocol.h GetDefaultPort(testnet=false) 43555? "14872 (P2P) and 14873 (RPC)"
+    public static final int Port    = 4872;       //protocol.h GetDefaultPort(testnet=false) 43555? "14872 (P2P) and 14873 (RPC)"
     public static final int TestPort = 14872;     //protocol.h GetDefaultPort(testnet=true) 43557?
     //RPC PORTS FROM bitcoinrpc.cpp 33812 : 4873;
     //PORTS FROM protocol.h  return testnet ? 33813 : 4872;
     //PORTS FROM init.cpp    default: 33813 or testnet: 4872     RPCPORT default: 33812 or testnet: 4873
+    /*
+    P2P: 4872
+    RPC: 4873
+    Put a 1 in front of them, and you get the testnet port. (14872, 14873).
+    */
     
 
     //
