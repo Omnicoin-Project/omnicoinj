@@ -798,7 +798,410 @@ public abstract class AbstractBlockChain {
     /**
      * Throws an exception if the blocks difficulty is not correct.
      */
-    private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+     
+     private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+
+        checkState(lock.isHeldByCurrentThread());
+        //long now = System.currentTimeMillis();
+
+
+        int DiffMode = 1;
+        if (params.getId().equals(NetworkParameters.ID_TESTNET)) {
+            if (storedPrev.getHeight()+1 >= 2237) { DiffMode = 2; }
+        }
+        else {
+            if (storedPrev.getHeight()+1 >= 62773) { DiffMode = 2; }
+        }
+
+        if		(DiffMode == 1) { checkDifficultyTransitions_V1(storedPrev, nextBlock);/* return;*/}
+        else if	(DiffMode == 2) { checkDifficultyTransitions_V2(storedPrev, nextBlock);/* return;*/}
+
+        //checkDifficultyTransitions_V2(storedPrev, nextBlock);
+
+        //long elapsed = System.currentTimeMillis() - now;
+        //log.info("Megacoin checkDifficultyTransitions({}) is {} seconds", storedPrev.getHeight(), elapsed/1000);
+    }
+    private void checkDifficultyTransitions_V1(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+
+        checkState(lock.isHeldByCurrentThread());
+        Block prev = storedPrev.getHeader();
+
+        	/* previous difficulty formula, ported from freicoin */
+        //int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
+
+        boolean fTestNet = params.getId().equals(NetworkParameters.ID_TESTNET);
+
+        final int WINDOW = 144;
+        final double kOne = 1.0;
+        final double kTwoToTheThirtyOne = 2147483648f;
+        final double kGain = 0.025;
+        final double kLimiterUp = 1.055;
+        final double kLimiterDown = (double)200 / 211;
+        final double kTargetInterval = CoinDefinition.TARGET_SPACING;
+        final int[] kFilterCoeff = //= new int[WINDOW]
+         {
+            -845859,  -459003,  -573589,  -703227,  -848199, -1008841,
+                    -1183669, -1372046, -1573247, -1787578, -2011503, -2243311,
+                    -2482346, -2723079, -2964681, -3202200, -3432186, -3650186,
+                    -3851924, -4032122, -4185340, -4306430, -4389146, -4427786,
+                    -4416716, -4349289, -4220031, -4022692, -3751740, -3401468,
+                    -2966915, -2443070, -1825548, -1110759,  -295281,   623307,
+                    1646668,  2775970,  4011152,  5351560,  6795424,  8340274,
+                    9982332, 11717130, 13539111, 15441640, 17417389, 19457954,
+                    21554056, 23695744, 25872220, 28072119, 30283431, 32493814,
+                    34690317, 36859911, 38989360, 41065293, 43074548, 45004087,
+                    46841170, 48573558, 50189545, 51678076, 53028839, 54232505,
+                    55280554, 56165609, 56881415, 57422788, 57785876, 57968085,
+                    57968084, 57785876, 57422788, 56881415, 56165609, 55280554,
+                    54232505, 53028839, 51678076, 50189545, 48573558, 46841170,
+                    45004087, 43074548, 41065293, 38989360, 36859911, 34690317,
+                    32493814, 30283431, 28072119, 25872220, 23695744, 21554057,
+                    19457953, 17417389, 15441640, 13539111, 11717130,  9982332,
+                    8340274,  6795424,  5351560,  4011152,  2775970,  1646668,
+                    623307,  -295281, -1110759, -1825548, -2443070, -2966915,
+                    -3401468, -3751740, -4022692, -4220031, -4349289, -4416715,
+                    -4427787, -4389146, -4306430, -4185340, -4032122, -3851924,
+                    -3650186, -3432186, -3202200, -2964681, -2723079, -2482346,
+                    -2243311, -2011503, -1787578, -1573247, -1372046, -1183669,
+                    -1008841,  -848199,  -703227,  -573589,  -459003,  -845858
+        };
+
+        // Genesis block
+        //if (pindexLast == NULL)
+        //    return nProofOfWorkLimit;
+
+        boolean fUseFilter =
+                (fTestNet && storedPrev.getHeight()>=(CoinDefinition.DIFF_FILTER_THRESHOLD_TESTNET-1)) ||
+        (!fTestNet && storedPrev.getHeight()>=(CoinDefinition.DIFF_FILTER_THRESHOLD-1));
+
+        long nInterval       = CoinDefinition.nFilteredInterval;
+        long nTargetTimespan = CoinDefinition.nFilteredTargetTimespan;
+        if ( !fUseFilter ) {
+            nInterval       = CoinDefinition.nOriginalInterval;
+            nTargetTimespan = CoinDefinition.nOriginalTargetTimespan;
+        }
+
+        // Only change once per interval
+        if (  (fUseFilter && (storedPrev.getHeight()+1) % nInterval != 0) ||
+                (!fUseFilter && (storedPrev.getHeight()+1) % 2016 != 0))
+        {
+            // Special difficulty rule for testnet:
+            if (fTestNet)
+            {
+                // If the new block's timestamp is more than nTargetSpacing*2
+                // then allow mining of a min-difficulty block.
+                if (nextBlock.getTimeSeconds() > prev.getTimeSeconds() + CoinDefinition.nTargetSpacing*2)
+                {
+                    verifyDifficulty(params.getProofOfWorkLimit(), nextBlock);
+                    return;
+                }
+                else
+                {
+                    // Return the last non-special-min-difficulty-rules-block
+                    //const CBlockIndex* pindex = pindexLast;
+                    //while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                    //while (pindex->pprev && pindex.getHeight() % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
+                    //    pindex = pindex->pprev;
+                    StoredBlock cursor = blockStore.get(prev.getHash());
+                    while (cursor != null  && cursor.getHeight() % nInterval != 0 && cursor.getHeader().getDifficultyTargetAsInteger() == params.getProofOfWorkLimit())
+                    {
+                        cursor = blockStore.get(cursor.getHeader().getPrevBlockHash());
+                    }
+                    verifyDifficulty(cursor.getHeader().getDifficultyTargetAsInteger(), nextBlock);
+                    return;
+                }
+            }
+
+            //return pindexLast->nBits;
+            if (nextBlock.getDifficultyTarget() != prev.getDifficultyTarget())
+                throw new VerificationException("Unexpected change in difficulty at height " + storedPrev.getHeight() +
+                        ": " + Long.toHexString(nextBlock.getDifficultyTarget()) + " vs " +
+                        Long.toHexString(prev.getDifficultyTarget()));
+            return;
+        }
+
+        double dAdjustmentFactor;
+
+        if ( fUseFilter ) {
+            int[] vTimeDelta = new int[WINDOW];
+
+            int idx = 0;
+            //const CBlockIndex *pitr = pindexLast;
+            //for ( ; idx!=WINDOW && pitr && pitr->pprev; ++idx, pitr=pitr->pprev )
+            //    vTimeDelta[idx] = (int)(pitr->GetBlockTime() - pitr->pprev->GetBlockTime());
+
+            StoredBlock pitr = blockStore.get(prev.getHash());
+            StoredBlock pprev = blockStore.get(pitr.getHeader().getPrevBlockHash());
+            int lastHeight = pitr.getHeight();
+            for (; idx!=WINDOW && pitr != null && pprev != null; ++idx) {
+                if (pitr == null && lastHeight < 2016)
+                {
+                //if (pitr == null) {
+                    // This should never happen. If it does, it means we are following an incorrect or busted chain.
+                    throw new VerificationException(
+                            "Difficulty transition point but we did not find a way back to the genesis block.");
+                }
+                else if (pitr == null && lastHeight < 2016)
+                {
+                    //we are using a checkpoint and have not downloaded enough blocks (144) to verify the difficulty adjustments
+                    return;
+                }
+                vTimeDelta[idx] = (int)(pitr.getHeader().getTimeSeconds() - pprev.getHeader().getTimeSeconds());
+
+                pitr = blockStore.get(pitr.getHeader().getPrevBlockHash());
+                pprev = blockStore.get(pitr.getHeader().getPrevBlockHash());
+            }
+
+            for ( ; idx!=WINDOW; ++idx )
+                vTimeDelta[idx] = (int)CoinDefinition.nTargetSpacing;
+
+            long vFilteredTime = 0;
+            for ( idx=0; idx<WINDOW; ++idx )
+                vFilteredTime += (long)kFilterCoeff[idx] * (long)vTimeDelta[idx];
+            double dFilteredInterval = vFilteredTime / kTwoToTheThirtyOne;
+
+            dAdjustmentFactor = kOne - kGain * (dFilteredInterval - kTargetInterval) / kTargetInterval;
+            if ( dAdjustmentFactor > kLimiterUp ) {
+                dAdjustmentFactor = kLimiterUp;
+            }
+            else if ( dAdjustmentFactor < kLimiterDown ) {
+                dAdjustmentFactor = kLimiterDown;
+            }
+        } else {
+
+            // We need to find a block far back in the chain. It's OK that this is expensive because it only occurs every
+            // two weeks after the initial block chain download.
+
+
+            long now = System.currentTimeMillis();
+            StoredBlock cursor = blockStore.get(prev.getHash());
+
+            long goBack = nInterval - 1;
+            if (cursor.getHeight()+1 != nInterval)
+                goBack = nInterval;
+
+            for (int i = 0; i < /*nInterval*/ goBack /*- 1*/; i++) {
+                if (cursor == null) {
+                    // This should never happen. If it does, it means we are following an incorrect or busted chain.
+                    throw new VerificationException(
+                            "Difficulty transition point but we did not find a way back to the genesis block.");
+                }
+                cursor = blockStore.get(cursor.getHeader().getPrevBlockHash());
+            }
+            long elapsed = System.currentTimeMillis() - now;
+            if (elapsed > 50)
+                log.info("Difficulty transition traversal took {}msec", elapsed);
+
+            Block blockIntervalAgo = cursor.getHeader();
+            long timespan = (long) (prev.getTimeSeconds() - blockIntervalAgo.getTimeSeconds());
+            // Limit the adjustment step.
+            //final int targetTimespan = nTargetTimespan;
+
+            if (timespan < nTargetTimespan / 4)
+                timespan = nTargetTimespan / 4;
+            if (timespan > nTargetTimespan * 4)
+                timespan = nTargetTimespan * 4;
+
+            dAdjustmentFactor = (double)nTargetTimespan / timespan;
+        }
+
+        // Retarget
+        //CBigNum bnNew;
+        //bnNew.SetCompact(pindexLast->nBits);
+        BigInteger newDifficulty = Utils.decodeCompactBits(prev.getDifficultyTarget());
+
+        long dAdjustmentFactorNumerator = DoubleToNumerator(dAdjustmentFactor);
+        long dAdjustmentFactorDenominator = DoubleToDenominator(dAdjustmentFactor);
+        //DoubleToNumeratorDenominator(dAdjustmentFactor, &dAdjustmentFactorNumerator, &dAdjustmentFactorDenominator);
+
+        //bnNew *= dAdjustmentFactorDenominator;
+        //bnNew /= dAdjustmentFactorNumerator;
+
+//        if (bnNew > bnProofOfWorkLimit)
+  //          bnNew = bnProofOfWorkLimit;
+
+        newDifficulty = newDifficulty.multiply(BigInteger.valueOf(dAdjustmentFactorDenominator));
+        newDifficulty = newDifficulty.divide(BigInteger.valueOf(dAdjustmentFactorNumerator));
+
+        if (newDifficulty.compareTo(params.getProofOfWorkLimit()) > 0) {
+            log.info("Difficulty hit proof of work limit: {}", newDifficulty.toString(16));
+            newDifficulty = params.getProofOfWorkLimit();
+        }
+
+
+
+        verifyDifficulty(newDifficulty, nextBlock);
+
+    }
+    private void verifyDifficulty(BigInteger calcDiff, Block nextBlock)
+    {
+        if (calcDiff.compareTo(params.getProofOfWorkLimit()) > 0) {
+            log.info("Difficulty hit proof of work limit: {}", calcDiff.toString(16));
+            calcDiff = params.getProofOfWorkLimit();
+        }
+        int accuracyBytes = (int) (nextBlock.getDifficultyTarget() >>> 24) - 3;
+        BigInteger receivedDifficulty = nextBlock.getDifficultyTargetAsInteger();
+
+        // The calculated difficulty is to a higher precision than received, so reduce here.
+        BigInteger mask = BigInteger.valueOf(0xFFFFFFL).shiftLeft(accuracyBytes * 8);
+        calcDiff = calcDiff.and(mask);
+
+        if (calcDiff.compareTo(receivedDifficulty) != 0)
+            throw new VerificationException("Network provided difficulty bits do not match what was calculated: " +
+                    receivedDifficulty.toString(16) + " vs " + calcDiff.toString(16));
+    }
+    public static class FRexpResult
+    {
+        public int exponent = 0;
+        public double mantissa = 0.;
+    }
+
+    public static FRexpResult frexp(double value)
+    {
+        final FRexpResult result = new FRexpResult();
+        long bits = Double.doubleToLongBits(value);
+        double realMant = 1.;
+
+        // Test for NaN, infinity, and zero.
+        if (Double.isNaN(value) ||
+                value + value == value ||
+                Double.isInfinite(value))
+        {
+            result.exponent = 0;
+            result.mantissa = value;
+        }
+        else
+        {
+
+            boolean neg = (bits < 0);
+            int exponent = (int)((bits >> 52) & 0x7ffL);
+            long mantissa = bits & 0xfffffffffffffL;
+
+            if(exponent == 0)
+            {
+                exponent++;
+            }
+            else
+            {
+                mantissa = mantissa | (1L<<52);
+            }
+
+            // bias the exponent - actually biased by 1023.
+            // we are treating the mantissa as m.0 instead of 0.m
+            //  so subtract another 52.
+            exponent -= 1075;
+            realMant = mantissa;
+
+            // normalize
+            while(realMant > 1.0)
+            {
+                mantissa >>= 1;
+                realMant /= 2.;
+                exponent++;
+            }
+
+            if(neg)
+            {
+                realMant = realMant * -1;
+            }
+
+            result.exponent = exponent;
+            result.mantissa = realMant;
+        }
+        return result;
+    }
+    private long DoubleToNumerator(double inDouble)
+    {
+        long outNumerator;
+        long outDenominator;
+        double fPart;
+        int expo; // exponent
+        long lExpo;
+        int i;
+
+        //fPart = frexp(inDouble, &expo);
+        FRexpResult result =frexp(inDouble);
+        fPart = result.mantissa;
+        expo = result.exponent;
+
+        for (i=0; i<300 && fPart != java.lang.Math.floor(fPart) ; i++) { fPart *= 2.0; expo--; }
+
+        outNumerator = (long) fPart;
+        lExpo = 1L << java.lang.Math.abs((long) expo);
+        if (expo > 0) {
+            outNumerator *= lExpo;
+            outDenominator = 1;
+        }
+        else { outDenominator = lExpo; }
+
+        return outNumerator;
+    }
+    private long DoubleToDenominator(double inDouble)
+    {
+        long outNumerator;
+        long outDenominator;
+        double fPart;
+        int expo; // exponent
+        long lExpo;
+        int i;
+
+        //fPart = frexp(inDouble, &expo);
+        FRexpResult result =frexp(inDouble);
+        fPart = result.mantissa;
+        expo = result.exponent;
+
+        for (i=0; i<300 && fPart != java.lang.Math.floor(fPart) ; i++) { fPart *= 2.0; expo--; }
+
+        outNumerator = (long) fPart;
+        lExpo = 1L << java.lang.Math.abs((long) expo);
+        if (expo > 0) {
+            outNumerator *= lExpo;
+            outDenominator = 1;
+        }
+        else { outDenominator = lExpo; }
+
+        return outDenominator;
+    }
+    long j = 0;
+    long N = 0;
+    long N2 = 0;
+    int i = 0;
+    private void checkDifficultyTransitions_V2(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+        final long      	BlocksTargetSpacing			= 150; // 2.5 minutes
+        int         		TimeDaySeconds				= 60 * 60 * 24;
+        long				PastSecondsMin				= TimeDaySeconds / 4;  //6 hours
+        long				PastSecondsMax				= TimeDaySeconds * 7;  // 7 days
+        long				PastBlocksMin				= PastSecondsMin / BlocksTargetSpacing;  //144 blocks
+        long				PastBlocksMax				= PastSecondsMax / BlocksTargetSpacing;  //4032 blocks
+
+        if(!kgw.isNativeLibraryLoaded())
+        //    long start = System.currentTimeMillis();
+            KimotoGravityWell(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+            //long end1 = System.currentTimeMillis();
+            //if(kgw.isNativeLibraryLoaded())
+        else
+          //      KimotoGravityWell_N(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+          //  long end2 = System.currentTimeMillis();
+            //if(kgw.isNativeLibraryLoaded())
+            KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+        /*long end3 = System.currentTimeMillis();
+
+        long java = end1 - start;
+        long n1 = end2 - end1;
+        long n2 = end3 - end2;
+        if(i > 20)
+        {
+            j += java;
+            N += n1;
+            N2 += n2;
+            if(i != 0 && ((i % 10) == 0))
+             //log.info("KGW 10 blocks: J={}; N={} -%.0f%; N2={} -%.0f%", java, n1, ((double)(java-n1))/java*100, n2, ((double)(java-n2))/java*100);
+                 log.info("KGW {} blocks: J={}; N={} -{}%; N2={} -{}%", i-20, j, N, ((double)(j-N))/j*100, N2, ((double)(j-N2))/j*100);
+        }
+        ++i;*/
+    }
+
+    /*private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
         checkState(lock.isLocked());
         Block prev = storedPrev.getHeader();
 
@@ -808,7 +1211,7 @@ public abstract class AbstractBlockChain {
 
         boolean fNewDifficultyProtocol = ((storedPrev.getHeight() + 1) >= nDifficultySwitchHeight);
         boolean fInflationFixProtocol = ((storedPrev.getHeight() + 1) >= nInflationFixHeight);
-        boolean fDifficultySwitchHeightTwo = ((storedPrev.getHeight() + 1) >= nDifficultySwitchHeightTwo /*|| fTestNet*/);
+        boolean fDifficultySwitchHeightTwo = ((storedPrev.getHeight() + 1) >= nDifficultySwitchHeightTwo); //|| fTestNet);
 
         int nTargetTimespanCurrent = fInflationFixProtocol? params.targetTimespan : (params.targetTimespan*5);
         int interval = fInflationFixProtocol? (nTargetTimespanCurrent / params.TARGET_SPACING) : (nTargetTimespanCurrent / (params.TARGET_SPACING / 2));
@@ -967,7 +1370,7 @@ public abstract class AbstractBlockChain {
         if (newDifficulty.compareTo(receivedDifficulty) != 0)
             throw new VerificationException("Network provided difficulty bits do not match what was calculated: " +
                     receivedDifficulty.toString(16) + " vs " + newDifficulty.toString(16));
-    }
+    }*/
 
    private void KimotoGravityWell(StoredBlock storedPrev, Block nextBlock, long TargetBlocksSpacingSeconds, long PastBlocksMin, long PastBlocksMax)  throws BlockStoreException, VerificationException {
 	/* current difficulty formula, megacoin - kimoto gravity well */
