@@ -34,6 +34,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.locks.ReentrantLock;
 
+import hashengineering.difficulty.KimotoGravityWell.kgw;
+
 import static com.google.common.base.Preconditions.*;
 
 /**
