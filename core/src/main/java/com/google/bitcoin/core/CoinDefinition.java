@@ -20,7 +20,7 @@ public class CoinDefinition {
     public static final String coinURIScheme = "omnicoin";
     public static final String cryptsyMarketId = "26"; //cryptsy doesnt currently support OMC
     public static final String cryptsyMarketCurrency = "BTC";
-    public static final String PATTERN_PRIVATE_KEY_START = "6";
+    public static final String PATTERN_PRIVATE_KEY_START = "d";
 
     public static String lowerCaseCoinName() { return coinName.toLowerCase(); }
 
@@ -49,11 +49,11 @@ public class CoinDefinition {
     public static int checkpointDaysBack = 21;
     //Original Values
     public static final int TARGET_TIMESPAN_0 = (int)(6 * 60 * 3 * 20);  // 3.5 days per difficulty cycle, on average.
-    public static final int TARGET_SPACING_0 = (int)(1 * 20);  // 20 seconds per block.
+    public static final int TARGET_SPACING_0 = (int)(3 * 60);  // 180 seconds per block.
     public static final int INTERVAL_0 = TARGET_TIMESPAN_0 / TARGET_SPACING_0;  //1080 blocks
 
     public static final int TARGET_TIMESPAN_1 = (int)(108 * 20);  // 36 minutes per difficulty cycle, on average.
-    public static final int TARGET_SPACING_1 = (int)(1 * 20);  // 20 seconds per block.
+    public static final int TARGET_SPACING_1 = (int)(3 * 60);  // 20 seconds per block.
     public static final int INTERVAL_1 = TARGET_TIMESPAN_1 / TARGET_SPACING_1;  //108 blocks
 
     public static final int TARGET_TIMESPAN = (int)(108 * 40);  // 72 minutes per difficulty cycle, on average.
@@ -150,25 +150,27 @@ public class CoinDefinition {
     static public String genesisHash = "721abe3814e15f1ab50514c8b7fffa7578c1f35aa915275ee91f4cb8d02be5c4"; //main.cpp: hashGenesisBlock
     static public int genesisBlockValue = 88;                                                              //main.cpp: LoadBlockIndex
     //taken from the raw data of the block explorer
-    static public String genesisTxInBytes = "35e6a0e897ed76cd5f08b75d118fb7c99aec7cdd297b96c21dc6671d2034c953";  ??? //"Omnicoin, A Currency for a Digital Age"
+    static public String genesisTxInBytes = "35e6a0e897ed76cd5f08b75d118fb7c99aec7cdd297b96c21dc6671d2034c953";  //??? //"Omnicoin, A Currency for a Digital Age"
     static public String genesisTxOutBytes = "04a5814813115273a109cff99907ba4a05d951873dae7acb6c973d0c9e7c88911a3dbc9aa600deac241b91707e7b4ffb30ad91c8e56e695a1ddf318592988afe0a";
 
     //net.cpp strDNSSeed
     static public String[] dnsSeeds = new String[] {
+            /*
             "dgc1.seed.nodes.mywl.lt",
             "dgc2.seed.nodes.mywl.lt",
             "dgc3.seed.nodes.mywl.lt",
             "dgc4.seed.nodes.mywl.lt",
+            */
             //"direct.crypto-expert.com",         //offline
             //"207.12.89.119",                    //offline
             //"198.50.30.145",                    //offline
 
-            "178.237.35.34",
-            "dgc.kadaplace.com",
+            //"178.237.35.34",
+            //"dgc.kadaplace.com",
             //"dnsseed.digitalcoin.co",            //offline
             //"dnsseed.rc.altcointech.net",
-            "54.208.77.156",
-            "68.14.170.140",
+            //"54.208.77.156",
+            //"68.14.170.140",
             
             /*
             172.245.39.121
