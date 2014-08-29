@@ -18,7 +18,7 @@ public class CoinDefinition {
     public static final String coinName = "omnicoin";
     public static final String coinTicker = "OMC";
     public static final String coinURIScheme = "omnicoin";
-    public static final String cryptsyMarketId = "26"; //cryptsy doesnt currently support OMC
+    public static final String cryptsyMarketId = "26"; //cryptsy doesnt currently support OMC. Allcrypt: 672
     public static final String cryptsyMarketCurrency = "BTC";
     public static final String PATTERN_PRIVATE_KEY_START = "d";
 
