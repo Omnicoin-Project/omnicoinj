@@ -7,7 +7,10 @@ With a new launch of version 2 (OMCv2), a new team, and renewed focus Omnicoin p
 Check out http://www.omnicoin.org/ for more info.
 
 Omnicoin Github project: https://github.com/Omnicoin-Project
+
 Block explorer: https://omnicha.in/
+
+Hackforums Official Omnicoin thread: http://hackforums.net/showthread.php?tid=4133835
 
 ![alt tag](https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT5cGH94w6MbLPaBojOdBAVmPM9pbqJm3LIn2gNd4tPKd1F8qbgmg)
 
