@@ -1,18 +1,8 @@
 Welcome to _OmnicoinJ_, a Java implementation of the Omnicoin protocol
 
-Omnicoin is an experiment in the creation, implementation, and integration of a cryptocurrency with MyBB community software in mind. 
-Originally created by a member of HackForums.net it's grown beyond that initial ideal and has moved into a wider realm of possibility. 
-With a new launch of version 2 (OMCv2), a new team, and renewed focus Omnicoin promises to gain ground which no other crypto currency has tread.
+<div align="center"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT5cGH94w6MbLPaBojOdBAVmPM9pbqJm3LIn2gNd4tPKd1F8qbgmg" /></div>
 
-Check out http://www.omnicoin.org/ for more info.
-
-Omnicoin Github project: https://github.com/Omnicoin-Project
-
-Block explorer: https://omnicha.in/
-
-Hackforums Official Omnicoin thread: http://hackforums.net/showthread.php?tid=4133835
-
-![alt tag](https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT5cGH94w6MbLPaBojOdBAVmPM9pbqJm3LIn2gNd4tPKd1F8qbgmg)
+Visit the [Omnicoin Wiki](https://github.com/Omnicoin-Project/Omnicoin/wiki) for more information
 
 Things that still need updating:
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
