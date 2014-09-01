@@ -1,4 +1,4 @@
-<div align="center"><h1>Welcome to <b>OmnicoinJ</b></h1><div>
+<div align="center"><h1>Welcome to <b>OmnicoinJ</b></h1></div>
 
 <div align="center">A Java implementation of the Omnicoin protocol</div>
 
