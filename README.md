@@ -2,6 +2,7 @@
 
 <div align="center">A Java implementation of the Omnicoin protocol</div>
 
+
 <div align="center"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT5cGH94w6MbLPaBojOdBAVmPM9pbqJm3LIn2gNd4tPKd1F8qbgmg" /></div>
 
 Visit the [Omnicoin Wiki](https://github.com/Omnicoin-Project/Omnicoin/wiki) for more information
