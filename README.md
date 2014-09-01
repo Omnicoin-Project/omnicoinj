@@ -5,7 +5,7 @@
 
 <div align="center"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT5cGH94w6MbLPaBojOdBAVmPM9pbqJm3LIn2gNd4tPKd1F8qbgmg" /></div>
 
-Visit the [Omnicoin Wiki](https://github.com/Omnicoin-Project/Omnicoin/wiki) for more information
+<div align="center">Visit the <a href="https://github.com/Omnicoin-Project/Omnicoin/wiki">Omnicoin Wiki</a> for more information</div>
 
 Things that still need updating:
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
