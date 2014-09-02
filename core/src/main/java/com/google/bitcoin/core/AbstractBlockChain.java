@@ -1431,7 +1431,8 @@ public abstract class AbstractBlockChain {
             if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
                 PastRateAdjustmentRatio			= (double)PastRateTargetSeconds / PastRateActualSeconds;
             }
-            EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(144)), -1.228));
+            EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(28.8)), -1.228));
+            //EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(144)), -1.228));
             EventHorizonDeviationFast		= EventHorizonDeviation;
             EventHorizonDeviationSlow		= 1 / EventHorizonDeviation;
 
@@ -1519,8 +1520,8 @@ public abstract class AbstractBlockChain {
         long totalReadtime = 0;
         long totalBigIntTime = 0;
 
-        int init_result = kgw.KimotoGravityWell_init(TargetBlocksSpacingSeconds, PastBlocksMin, PastBlocksMax, 144d);
-
+        //int init_result = kgw.KimotoGravityWell_init(TargetBlocksSpacingSeconds, PastBlocksMin, PastBlocksMax, 144d);
+	int init_result = kgw.KimotoGravityWell_init(TargetBlocksSpacingSeconds, PastBlocksMin, PastBlocksMax, 28.8);
 
         for (i = 1; BlockReading != null && BlockReading.getHeight() > 0; i++) {
             long startLoop = System.currentTimeMillis();
