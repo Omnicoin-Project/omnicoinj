@@ -805,17 +805,21 @@ public abstract class AbstractBlockChain {
         //long now = System.currentTimeMillis();
 
 
-        int DiffMode = 1;
+        /*int DiffMode = 1;
         if (params.getId().equals(NetworkParameters.ID_TESTNET)) {
             if (storedPrev.getHeight()+1 >= 2237) { DiffMode = 2; }
         }
         else {
             if (storedPrev.getHeight()+1 >= 62773) { DiffMode = 2; }
-        }
+        }*/
 
-        if		(DiffMode == 1) { checkDifficultyTransitions_V1(storedPrev, nextBlock);/* return;*/}
-        else if	(DiffMode == 2) { checkDifficultyTransitions_V2(storedPrev, nextBlock);/* return;*/}
+        //if		(DiffMode == 1) { checkDifficultyTransitions_V1(storedPrev, nextBlock);/* return;*/}
+        //else if	(DiffMode == 2) { checkDifficultyTransitions_V2(storedPrev, nextBlock);/* return;*/}
 
+	if (storedPrev.getHeight()+1 >= 160) { return startDifficulty; }
+       
+      	checkDifficultyTransitions_V2(storedPrev, nextBlock);
+      
         //checkDifficultyTransitions_V2(storedPrev, nextBlock);
 
         //long elapsed = System.currentTimeMillis() - now;
