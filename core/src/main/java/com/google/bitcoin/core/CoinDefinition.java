@@ -151,7 +151,7 @@ public class CoinDefinition {
     static public int genesisBlockValue = 88;                                                              //main.cpp: LoadBlockIndex
     //taken from the raw data of the block explorer
     static public String genesisTxInBytes = "35e6a0e897ed76cd5f08b75d118fb7c99aec7cdd297b96c21dc6671d2034c953";  //??? //"Omnicoin, A Currency for a Digital Age"
-    static public String genesisTxOutBytes = "04a5814813115273a109cff99907ba4a05d951873dae7acb6c973d0c9e7c88911a3dbc9aa600deac241b91707e7b4ffb30ad91c8e56e695a1ddf318592988afe0a";
+    static public String genesisTxOutBytes = "040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9";
 
     //net.cpp strDNSSeed
     static public String[] dnsSeeds = new String[] {
