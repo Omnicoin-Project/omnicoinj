@@ -1171,7 +1171,19 @@ public abstract class AbstractBlockChain {
     long N2 = 0;
     int i = 0;
     private void checkDifficultyTransitions_V2(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
-        final long      	BlocksTargetSpacing			= 150; // 2.5 minutes
+        final long      	BlocksTargetSpacing			= 180; // 3 minutes
+        int         		TimeDaySeconds				= 60 * 60 * 24;
+        long				PastSecondsMin				= TimeDaySeconds *3 / 10;
+        long				PastSecondsMax				= TimeDaySeconds * 3 * 2.8;
+        long				PastBlocksMin				= PastSecondsMin / BlocksTargetSpacing;
+        long				PastBlocksMax				= PastSecondsMax / BlocksTargetSpacing;
+
+        if(!kgw.isNativeLibraryLoaded())
+            KimotoGravityWell(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+        else
+            KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+        
+        /*final long      	BlocksTargetSpacing			= 150; // 2.5 minutes
         int         		TimeDaySeconds				= 60 * 60 * 24;
         long				PastSecondsMin				= TimeDaySeconds / 4;  //6 hours
         long				PastSecondsMax				= TimeDaySeconds * 7;  // 7 days
@@ -1188,6 +1200,8 @@ public abstract class AbstractBlockChain {
           //  long end2 = System.currentTimeMillis();
             //if(kgw.isNativeLibraryLoaded())
             KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+            
+            */
         /*long end3 = System.currentTimeMillis();
 
         long java = end1 - start;
