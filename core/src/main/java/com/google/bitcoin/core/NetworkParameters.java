@@ -111,11 +111,13 @@ public abstract class NetworkParameters implements Serializable {
                     //("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"));
             scriptPubKeyBytes.write(ScriptOpCodes.OP_CHECKSIG);
             t.addOutput(new TransactionOutput(n, t, Utils.toNanoCoins(CoinDefinition.genesisBlockValue, 0), scriptPubKeyBytes.toByteArray()));
+            genesisBlock.setMerkleRoot(new Sha256Hash("35e6a0e897ed76cd5f08b75d118fb7c99aec7cdd297b96c21dc6671d2034c953"));
         } catch (Exception e) {
             // Cannot happen.
             throw new RuntimeException(e);
         }
         genesisBlock.addTransaction(t);
+        log.info("Genesis Block Information (tx only):" + genesisBlock.toString());
         return genesisBlock;
     }
     private static Block createGenesis1(NetworkParameters n) {
