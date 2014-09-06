@@ -10,6 +10,6 @@
 <br />
 Things that still need updating:
 * omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
-* The checkDifficultyTransitions method must be updated in AbstractBlockChain to match the GetNextWorkRequired function in the C++ code
+* The checkDifficultyTransitions method must be updated in AbstractBlockChain to match the GetNextWorkRequired function in the C++ code. I think this is completed.
 
 Developed by MeshCollider. See AUTHORS for credits.
