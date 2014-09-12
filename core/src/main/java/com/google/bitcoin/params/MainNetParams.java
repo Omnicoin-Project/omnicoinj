@@ -22,11 +22,14 @@ import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.CoinDefinition;
 
 import static com.google.common.base.Preconditions.checkState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Parameters for the main production network on which people trade goods and services.
  */
 public class MainNetParams extends NetworkParameters {
+    private static final Logger log = LoggerFactory.getLogger(MainNetParams.class);
     public MainNetParams() {
         super();
         interval = INTERVAL;
