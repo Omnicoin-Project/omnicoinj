@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.bitcoin.core.Utils.COIN;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>NetworkParameters contains the data needed for working with an instantiation of a Bitcoin chain.</p>
@@ -40,6 +42,7 @@ import static com.google.bitcoin.core.Utils.COIN;
  * them, you are encouraged to call the static get() methods on each specific params class directly.</p>
  */
 public abstract class NetworkParameters implements Serializable {
+    private static final Logger log = LoggerFactory.getLogger(NetworkParameters.class);
     /**
      * The protocol version this library implements.
      */
