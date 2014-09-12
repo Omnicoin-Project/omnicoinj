@@ -18,6 +18,7 @@ package com.google.bitcoin.params;
 
 import com.google.bitcoin.core.CoinDefinition;
 import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Utils;
 import org.spongycastle.util.encoders.Hex;
 
