@@ -802,7 +802,7 @@ public abstract class AbstractBlockChain {
      private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
 
         checkState(lock.isHeldByCurrentThread());
-		if (storedPrev.getHeight()+1 >= 160) { return startDifficulty; }
+		if (storedPrev.getHeight()+1 >= 160) { verifyDifficulty(startDifficulty, block); return;}
        
       	checkDifficultyTransitions_V2(storedPrev, nextBlock);
     }
@@ -945,7 +945,7 @@ public abstract class AbstractBlockChain {
         final long      	BlocksTargetSpacing			= 180; // 3 minutes
         int         		TimeDaySeconds				= 60 * 60 * 24;
         long				PastSecondsMin				= TimeDaySeconds *3 / 10;
-        long				PastSecondsMax				= TimeDaySeconds * 3 * 2.8;
+        long				PastSecondsMax				= (long)(TimeDaySeconds * 3 * 2.8);
         long				PastBlocksMin				= PastSecondsMin / BlocksTargetSpacing;
         long				PastBlocksMax				= PastSecondsMax / BlocksTargetSpacing;
 
