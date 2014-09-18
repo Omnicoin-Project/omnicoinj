@@ -20,7 +20,6 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.utils.ListenerRegistration;
 import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.core.VerificationException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -806,7 +805,7 @@ public abstract class AbstractBlockChain {
 	if (storedPrev.getHeight()+1 >= 160) 
 	{ 
   		if(CoinDefinition.startDifficulty != nextBlock.getHeader().getDifficulty()) 
-    			throw VerificationException("Block < 160, Network Bits do not match"); 
+    			throw new VerificationException("Block < 160, Network Bits do not match"); 
   		return;
 	}
        
