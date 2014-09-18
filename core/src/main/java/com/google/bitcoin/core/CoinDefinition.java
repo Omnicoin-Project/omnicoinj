@@ -199,6 +199,7 @@ public class CoinDefinition {
 
 
 
+    public static BigInteger startDifficulty = Utils.decodeCompactBits(0x180fffffL);
 
 
     public static final boolean usingNewDifficultyProtocol(int height)
