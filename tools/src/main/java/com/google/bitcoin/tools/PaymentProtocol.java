@@ -18,6 +18,7 @@ package com.google.bitcoin.tools;
 
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
+import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
@@ -59,7 +60,7 @@ public class PaymentProtocol {
             final int version = session.getPaymentRequest().getPaymentDetailsVersion();
             StringBuilder output = new StringBuilder(
                     format("Bitcoin payment request, version %d%nDate: %s%n", version, session.getDate()));
-            PaymentSession.PkiVerificationData pki = session.verifyPki();
+            PkiVerificationData pki = session.verifyPki();
             if (pki != null) {
                 output.append(format("Signed by: %s%nIdentity verified by: %s%n", pki.name, pki.rootAuthorityName));
             }
