@@ -265,7 +265,7 @@ public class CoinDefinition {
           "not supported"
     };
     //from main.h: CAlert::CheckSignature
-    public static final String SATOSHI_KEY = "040182710fa6892d5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08d​ce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9";
+    public static final String SATOSHI_KEY = "040182710fa6892d5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9";
     public static final String TESTNET_SATOSHI_KEY = "";
 
     /** The string returned by getId() for the main, production network where people trade things. */
