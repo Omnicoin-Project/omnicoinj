@@ -155,32 +155,10 @@ public class CoinDefinition {
 
     //net.cpp strDNSSeed
     static public String[] dnsSeeds = new String[] {
-            /*
-            "dgc1.seed.nodes.mywl.lt",
-            "dgc2.seed.nodes.mywl.lt",
-            "dgc3.seed.nodes.mywl.lt",
-            "dgc4.seed.nodes.mywl.lt",
-            */
-            //"direct.crypto-expert.com",         //offline
-            //"207.12.89.119",                    //offline
-            //"198.50.30.145",                    //offline
-
-            //"178.237.35.34",
-            //"dgc.kadaplace.com",
-            //"dnsseed.digitalcoin.co",            //offline
-            //"dnsseed.rc.altcointech.net",
-            //"54.208.77.156",
-            //"68.14.170.140",
-            
-            /*
-            172.245.39.121
-            151.228.222.25
-            198.100.155.248
-            192.99.42.164
-            192.99.42.206
-            192.99.42.238
-            204.44.122.123
-            */
+        "192.99.42.164",
+        "192.99.42.206",
+        "192.99.42.238",
+        "204.44.122.123"
     };
 
     public static int minBroadcastConnections = 1;   //0 for default; we need more peers.
