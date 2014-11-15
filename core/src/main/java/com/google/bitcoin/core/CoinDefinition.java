@@ -111,8 +111,8 @@ public class CoinDefinition {
     public static final BigInteger DEFAULT_MIN_TX_FEE = BigInteger.valueOf(10000000);   // MIN_TX_FEE
     public static final BigInteger DUST_LIMIT = Utils.CENT; //main.h CTransaction::GetMinFee        0.01 coins
 
-    public static final int PROTOCOL_VERSION = 60002;          //version.h PROTOCOL_VERSION
-    public static final int MIN_PROTOCOL_VERSION = 60002;        //version.h MIN_PROTO_VERSION - eliminate 60001 which are on the wrong fork
+    public static final int PROTOCOL_VERSION = 80007;          //version.h PROTOCOL_VERSION
+    public static final int MIN_PROTOCOL_VERSION = 80004;        //version.h MIN_PROTO_VERSION - eliminate 60001 which are on the wrong fork
 
     public static final int BLOCK_CURRENTVERSION = 1;   //CBlock::CURRENT_VERSION
     public static final int MAX_BLOCK_SIZE = 1 * 1000 * 1000;
