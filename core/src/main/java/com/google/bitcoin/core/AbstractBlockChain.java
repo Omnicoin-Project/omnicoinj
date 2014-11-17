@@ -804,7 +804,8 @@ public abstract class AbstractBlockChain {
         checkState(lock.isHeldByCurrentThread());
 		if (storedPrev.getHeight()+1 <= 160) 
 		{ 
-			if(CoinDefinition.startDifficulty.longValue() != nextBlock.getDifficultyTarget()) 
+			//if(CoinDefinition.startDifficulty.longValue() != nextBlock.getDifficultyTarget()) 
+			if(CoinDefinition.startDifficulty.compareTo(nextBlock.getDifficultyTargetAsInteger()) != 0)
     			throw new VerificationException("Block < 160, Network Bits do not match"); 
 			return;
 		}
