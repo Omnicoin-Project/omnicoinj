@@ -802,14 +802,15 @@ public abstract class AbstractBlockChain {
      private void checkDifficultyTransitions(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
 
         checkState(lock.isHeldByCurrentThread());
-		if (storedPrev.getHeight()+1 <= 160) 
-		{ 
-			//if(CoinDefinition.startDifficulty.longValue() != nextBlock.getDifficultyTarget()) 
-			if(CoinDefinition.startDifficulty.compareTo(nextBlock.getDifficultyTargetAsInteger()) != 0)
-    			throw new VerificationException("Block < 160, Network Bits do not match"); 
-			return;
-		}
+	if (storedPrev.getHeight()+1 <= 160) 
+	{ 
+		//if(CoinDefinition.startDifficulty.longValue() != nextBlock.getDifficultyTarget()) 
+		if(CoinDefinition.startDifficulty.compareTo(nextBlock.getDifficultyTargetAsInteger()) != 0)
+    		throw new VerificationException("Block < 160, Network Bits do not match"); 
+		return;
 	}
+	checkDifficultyTransitions_V2(storedPrev, nextBlock);
+    }
     
     private void verifyDifficulty(BigInteger calcDiff, Block nextBlock)
     {
