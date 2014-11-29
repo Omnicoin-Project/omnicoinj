@@ -809,6 +809,12 @@ public abstract class AbstractBlockChain {
                 throw new VerificationException("Block " + (storedPrev.getHeight()+1)+" < 160, Network Bits do not match");
             return;
         }
+        else if (storedPrev.getHeight()  > 120000)
+        { 
+            //After block 120000, DGW is used. Otherwise, use KGW
+            checkDifficultyTransitions_DGW(storedPrev, nextBlock);
+            return;
+        }
         checkDifficultyTransitions_V2(storedPrev, nextBlock);
     }
     
@@ -958,6 +964,70 @@ public abstract class AbstractBlockChain {
             KimotoGravityWell(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
         else
             KimotoGravityWell_N2(storedPrev, nextBlock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+    }
+    
+    private void checkDifficultyTransitions_DGW(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
+	//TODO add DGW code
+	/*
+	// DarkGravity v3, written by Evan Duffield - evan@darkcoin.io
+    const CBlockIndex *BlockLastSolved = pindexLast;
+    const CBlockIndex *BlockReading = pindexLast;
+    const CBlockHeader *BlockCreating = pblock;
+    BlockCreating = BlockCreating;
+    int64 nActualTimespan = 0;
+    int64 LastBlockTime = 0;
+    int64 PastBlocksMin = 24;
+    int64 PastBlocksMax = 24;
+    int64 CountBlocks = 0;
+    CBigNum PastDifficultyAverage;
+    CBigNum PastDifficultyAveragePrev;
+
+    if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || BlockLastSolved->nHeight < PastBlocksMin) {
+        return bnProofOfWorkLimit.GetCompact();
+    }
+
+    for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
+        if (PastBlocksMax > 0 && i > PastBlocksMax) { break; }
+        CountBlocks++;
+
+        if(CountBlocks <= PastBlocksMin) {
+            if (CountBlocks == 1) {
+				PastDifficultyAverage.SetCompact(BlockReading->nBits);
+			} else {
+				PastDifficultyAverage = ((PastDifficultyAveragePrev * CountBlocks)+(CBigNum().SetCompact(BlockReading->nBits))) / (CountBlocks+1);
+			}
+            PastDifficultyAveragePrev = PastDifficultyAverage;
+        }
+
+        if(LastBlockTime > 0){
+            int64 Diff = (LastBlockTime - BlockReading->GetBlockTime());
+            nActualTimespan += Diff;
+        }
+
+        LastBlockTime = BlockReading->GetBlockTime();
+
+        if (BlockReading->pprev == NULL) { assert(BlockReading); break; }
+        BlockReading = BlockReading->pprev;
+    }
+
+    CBigNum bnNew(PastDifficultyAverage);
+
+    int64 nTargetTimespan = CountBlocks*nTargetSpacing;
+
+    if (nActualTimespan < nTargetTimespan/3)
+        nActualTimespan = nTargetTimespan/3;
+    if (nActualTimespan > nTargetTimespan*3)
+        nActualTimespan = nTargetTimespan*3;
+
+    bnNew *= nActualTimespan;
+    bnNew /= nTargetTimespan;
+
+    if (bnNew > bnProofOfWorkLimit){
+        bnNew = bnProofOfWorkLimit;
+    }
+
+    return bnNew.GetCompact();
+    */
     }
 
    private void KimotoGravityWell(StoredBlock storedPrev, Block nextBlock, long TargetBlocksSpacingSeconds, long PastBlocksMin, long PastBlocksMax)  throws BlockStoreException, VerificationException {
