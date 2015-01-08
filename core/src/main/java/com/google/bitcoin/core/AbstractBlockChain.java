@@ -1089,7 +1089,7 @@ public abstract class AbstractBlockChain {
             if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
                 PastRateAdjustmentRatio			= (double)PastRateTargetSeconds / PastRateActualSeconds;
             }
-            EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(28.8)), -1.228));
+            EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(28.2)), -1.228));
             //EventHorizonDeviation			= 1 + (0.7084 * java.lang.Math.pow((Double.valueOf(PastBlocksMass)/Double.valueOf(144)), -1.228));
             EventHorizonDeviationFast		= EventHorizonDeviation;
             EventHorizonDeviationSlow		= 1 / EventHorizonDeviation;
