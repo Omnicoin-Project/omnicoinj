@@ -809,7 +809,7 @@ public abstract class AbstractBlockChain {
                 throw new VerificationException("Block " + (storedPrev.getHeight()+1)+" < 160, Network Bits do not match");
             return;
         }
-        else if (storedPrev.getHeight()  > 120000)
+        else if (storedPrev.getHeight()  > 160000)
         { 
             //After block 120000, DGW is used. Otherwise, use KGW
             checkDifficultyTransitions_DGW(storedPrev, nextBlock);
