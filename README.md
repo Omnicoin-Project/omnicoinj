@@ -12,8 +12,8 @@ To build, run:
 
 <code>mvn clean install -DskipTests</code>
 
-To build checkpoints, run:
+To build checkpoints, run this command from the tools directory:
 
-<code>gggg</code>
+<code>mvn exec:java -Dexec.mainClass=com.google.bitcoin.tools.BuildCheckpoints</code>
 
 Developed by MeshCollider. See AUTHORS for credits.
