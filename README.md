@@ -8,8 +8,12 @@
 <div align="center">Visit the <a href="https://github.com/Omnicoin-Project/Omnicoin/wiki">Omnicoin Wiki</a> for more information</div>
 
 <br />
-Things that still need updating:
-* omnicoinj\core\src\main\java\com\google\bitcoin\core\CoinDefinition.java
-* The checkDifficultyTransitions method must be updated in AbstractBlockChain to match the GetNextWorkRequired function in the C++ code. I think this is completed.
+To build, run:
+
+<code>mvn clean install -DskipTests</code>
+
+To build checkpoints, run:
+
+<code>gggg</code>
 
 Developed by MeshCollider. See AUTHORS for credits.
