@@ -158,6 +158,12 @@ public class CoinDefinition {
         "192.99.42.206",
         "192.99.42.164",
         "192.99.15.174",
+		"198.100.155.225",
+		"192.99.4.195",
+		"50.197.11.193",
+		"184.56.132.89",
+		"92.222.29.169",
+		"192.99.42.54",
     };
 
     public static int minBroadcastConnections = 1;   //0 for default; we need more peers.
