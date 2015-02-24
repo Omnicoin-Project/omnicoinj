@@ -978,8 +978,8 @@ public abstract class AbstractBlockChain {
         long nBlockTimeSum2 = 0;
         long nBlockTimeCount2 = 0;
         long LastBlockTime = 0;
-        long PastBlocksMin = 14;
-        long PastBlocksMax = 140;
+        long PastBlocksMin = 24;
+        long PastBlocksMax = 24;
         long CountBlocks = 0;
         BigInteger PastDifficultyAverage = BigInteger.valueOf(0);
         BigInteger PastDifficultyAveragePrev = BigInteger.valueOf(0);
