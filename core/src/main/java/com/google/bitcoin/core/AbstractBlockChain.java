@@ -986,7 +986,7 @@ public abstract class AbstractBlockChain {
 
         //if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || BlockLastSolved->nHeight < PastBlocksMin) { return bnProofOfWorkLimit.GetCompact(); }
         if (BlockLastSolved == null || BlockLastSolved.getHeight() == 0 || (long)BlockLastSolved.getHeight() < PastBlocksMin)
-        { verifyDifficulty(params.getProofOfWorkLimit(), storedPrev, nextBlock); }
+        { verifyDifficulty(params.getProofOfWorkLimit(), nextBlock); }
 
         for (int i = 1; BlockReading != null && BlockReading.getHeight() > 0; i++) {
             if (PastBlocksMax > 0 && i > PastBlocksMax) { break; }
@@ -1051,7 +1051,7 @@ public abstract class AbstractBlockChain {
             bnNew = bnNew.multiply(BigInteger.valueOf(nActualTimespan));
             bnNew = bnNew.divide(BigInteger.valueOf(nTargetTimespan));
         }
-        verifyDifficulty(bnNew, storedPrev, nextBlock);
+        verifyDifficulty(bnNew, nextBlock);
 
         /*if (bnNew > bnProofOfWorkLimit){
             bnNew = bnProofOfWorkLimit;
