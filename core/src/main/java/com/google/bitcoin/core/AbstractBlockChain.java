@@ -981,7 +981,7 @@ public abstract class AbstractBlockChain {
         BigInteger PastDifficultyAveragePrev = BigInteger.ZERO;
 
         if (BlockLastSolved == null || BlockLastSolved.getHeight() == 0 || BlockLastSolved.getHeight() < PastBlocksMin) {
-            verifyDifficulty(params.getProofOfWorkLimit(), storedPrev, nextBlock);
+            verifyDifficulty(params.getProofOfWorkLimit(), nextBlock);
             return;
         }
 
@@ -1028,7 +1028,7 @@ public abstract class AbstractBlockChain {
         // Retarget
         bnNew = bnNew.multiply(BigInteger.valueOf(nActualTimespan));
         bnNew = bnNew.divide(BigInteger.valueOf(nTargetTimespan));
-        verifyDifficulty(bnNew, storedPrev, nextBlock);
+        verifyDifficulty(bnNew, nextBlock);
     }
 
    private void KimotoGravityWell(StoredBlock storedPrev, Block nextBlock, long TargetBlocksSpacingSeconds, long PastBlocksMin, long PastBlocksMax)  throws BlockStoreException, VerificationException {
