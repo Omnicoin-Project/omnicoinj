@@ -967,26 +967,23 @@ public abstract class AbstractBlockChain {
     }
     
     private void checkDifficultyTransitions_DGW(StoredBlock storedPrev, Block nextBlock) throws BlockStoreException, VerificationException {
-	/* current difficulty formula, limecoin - DarkGravity, written by Evan Duffield - evan@limecoin.io */
+	/* current difficulty formula, darkcoin - DarkGravity v3, written by Evan Duffield - evan@darkcoin.io */
         StoredBlock BlockLastSolved = storedPrev;
         StoredBlock BlockReading = storedPrev;
         Block BlockCreating = nextBlock;
-        //BlockCreating = BlockCreating;
-        long nBlockTimeAverage = 0;
-        long nBlockTimeAveragePrev = 0;
-        long nBlockTimeCount = 0;
-        long nBlockTimeSum2 = 0;
-        long nBlockTimeCount2 = 0;
+        BlockCreating = BlockCreating;
+        long nActualTimespan = 0;
         long LastBlockTime = 0;
         long PastBlocksMin = 24;
         long PastBlocksMax = 24;
         long CountBlocks = 0;
-        BigInteger PastDifficultyAverage = BigInteger.valueOf(0);
-        BigInteger PastDifficultyAveragePrev = BigInteger.valueOf(0);
+        BigInteger PastDifficultyAverage = BigInteger.ZERO;
+        BigInteger PastDifficultyAveragePrev = BigInteger.ZERO;
 
-        //if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || BlockLastSolved->nHeight < PastBlocksMin) { return bnProofOfWorkLimit.GetCompact(); }
-        if (BlockLastSolved == null || BlockLastSolved.getHeight() == 0 || (long)BlockLastSolved.getHeight() < PastBlocksMin)
-        { verifyDifficulty(params.getProofOfWorkLimit(), nextBlock); }
+        if (BlockLastSolved == null || BlockLastSolved.getHeight() == 0 || BlockLastSolved.getHeight() < PastBlocksMin) {
+            verifyDifficulty(params.getProofOfWorkLimit(), storedPrev, nextBlock);
+            return;
+        }
 
         for (int i = 1; BlockReading != null && BlockReading.getHeight() > 0; i++) {
             if (PastBlocksMax > 0 && i > PastBlocksMax) { break; }
@@ -994,31 +991,16 @@ public abstract class AbstractBlockChain {
 
             if(CountBlocks <= PastBlocksMin) {
                 if (CountBlocks == 1) { PastDifficultyAverage = BlockReading.getHeader().getDifficultyTargetAsInteger(); }
-                else
-                {
-                    //PastDifficultyAverage = ((CBigNum().SetCompact(BlockReading->nBits) - PastDifficultyAveragePrev) / CountBlocks) + PastDifficultyAveragePrev;
-                    PastDifficultyAverage = BlockReading.getHeader().getDifficultyTargetAsInteger().subtract(PastDifficultyAveragePrev).divide(BigInteger.valueOf(CountBlocks)).add(PastDifficultyAveragePrev);
-
-                }
+                else { PastDifficultyAverage = ((PastDifficultyAveragePrev.multiply(BigInteger.valueOf(CountBlocks)).add(BlockReading.getHeader().getDifficultyTargetAsInteger()).divide(BigInteger.valueOf(CountBlocks + 1)))); }
                 PastDifficultyAveragePrev = PastDifficultyAverage;
             }
 
             if(LastBlockTime > 0){
                 long Diff = (LastBlockTime - BlockReading.getHeader().getTimeSeconds());
-                if(Diff < 0) Diff = 0;
-                if(nBlockTimeCount <= PastBlocksMin) {
-                    nBlockTimeCount++;
-
-                    if (nBlockTimeCount == 1) { nBlockTimeAverage = Diff; }
-                    else { nBlockTimeAverage = ((Diff - nBlockTimeAveragePrev) / nBlockTimeCount) + nBlockTimeAveragePrev; }
-                    nBlockTimeAveragePrev = nBlockTimeAverage;
-                }
-                nBlockTimeCount2++;
-                nBlockTimeSum2 += Diff;
+                nActualTimespan += Diff;
             }
             LastBlockTime = BlockReading.getHeader().getTimeSeconds();
 
-            //if (BlockReading->pprev == NULL)
             try {
                 StoredBlock BlockReadingPrev = blockStore.get(BlockReading.getHeader().getPrevBlockHash());
                 if (BlockReadingPrev == null)
@@ -1034,29 +1016,19 @@ public abstract class AbstractBlockChain {
             }
         }
 
-        BigInteger bnNew = PastDifficultyAverage;
-        if (nBlockTimeCount != 0 && nBlockTimeCount2 != 0) {
-            double SmartAverage = (((nBlockTimeAverage)*0.7)+((nBlockTimeSum2 / nBlockTimeCount2)*0.3));
-            if(SmartAverage < 1) SmartAverage = 1;
-            double Shift = CoinDefinition.TARGET_SPACING/SmartAverage;
+        BigInteger bnNew= PastDifficultyAverage;
 
-            long nActualTimespan = (long)((CountBlocks*CoinDefinition.TARGET_SPACING)/Shift);
-            long nTargetTimespan = (CountBlocks*CoinDefinition.TARGET_SPACING);
-            if (nActualTimespan < nTargetTimespan/3)
-                nActualTimespan = nTargetTimespan/3;
-            if (nActualTimespan > nTargetTimespan*3)
-                nActualTimespan = nTargetTimespan*3;
+        long nTargetTimespan = CountBlocks*params.TARGET_SPACING;//nTargetSpacing;
 
-            // Retarget
-            bnNew = bnNew.multiply(BigInteger.valueOf(nActualTimespan));
-            bnNew = bnNew.divide(BigInteger.valueOf(nTargetTimespan));
-        }
-        verifyDifficulty(bnNew, nextBlock);
+        if (nActualTimespan < nTargetTimespan/3)
+            nActualTimespan = nTargetTimespan/3;
+        if (nActualTimespan > nTargetTimespan*3)
+            nActualTimespan = nTargetTimespan*3;
 
-        /*if (bnNew > bnProofOfWorkLimit){
-            bnNew = bnProofOfWorkLimit;
-        }
-        return bnNew.GetCompact();*/
+        // Retarget
+        bnNew = bnNew.multiply(BigInteger.valueOf(nActualTimespan));
+        bnNew = bnNew.divide(BigInteger.valueOf(nTargetTimespan));
+        verifyDifficulty(bnNew, storedPrev, nextBlock);
     }
 
    private void KimotoGravityWell(StoredBlock storedPrev, Block nextBlock, long TargetBlocksSpacingSeconds, long PastBlocksMin, long PastBlocksMax)  throws BlockStoreException, VerificationException {
