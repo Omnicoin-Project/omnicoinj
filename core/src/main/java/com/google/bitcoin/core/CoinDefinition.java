@@ -56,8 +56,8 @@ public class CoinDefinition {
     public static final int TARGET_SPACING_1 = (int)(3 * 60);  // 20 seconds per block.
     public static final int INTERVAL_1 = TARGET_TIMESPAN_1 / TARGET_SPACING_1;  //108 blocks
 
-    public static final int TARGET_TIMESPAN = (int)(108 * 40);  // 72 minutes per difficulty cycle, on average.
-    public static final int TARGET_SPACING = (int)(1 * 40);  // 40 seconds per block.
+    public static final int TARGET_TIMESPAN = (int)(4 * 60 * 40);  // 4 hours per difficulty cycle, on average.
+    public static final int TARGET_SPACING = (int)(3 * 60);   // 180 seconds per block.
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;  //108 blocks
 
     private static int nDifficultySwitchHeight = 476280;    //retarget every 108 instead of 1080 blocks; adjust by +100%/-50% instead of +400/-75%
