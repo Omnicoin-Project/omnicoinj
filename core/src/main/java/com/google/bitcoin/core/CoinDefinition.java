@@ -21,6 +21,9 @@ public class CoinDefinition {
     public static final String cryptsyMarketId = "672"; //cryptsy doesnt currently support OMC. Allcrypt: 672, modified exchangeratesprovider in omnicoin-wallet
     public static final String cryptsyMarketCurrency = "BTC";
     public static final String PATTERN_PRIVATE_KEY_START = "d";
+    public static final String PATTERN_PRIVATE_KEY_START_COMPRESSED = "";
+    public static final String PATTERN_PRIVATE_KEY_START_TESTNET = "";
+    public static final String PATTERN_PRIVATE_KEY_START_COMPRESSED_TESTNET = "";
 
     public static String lowerCaseCoinName() { return coinName.toLowerCase(); }
 
