@@ -42,6 +42,20 @@ public class CoinDefinition {
 
     public static final String DONATION_ADDRESS = "oMeshU9A7psVWNajjzdogeaRmY2xaGMuRA";  //MeshColliders OMC donation address
 
+	/*
+	SWEEPING WALLETS
+
+	For sweeping wallets, Bitcoin Wallet uses an API by biteasy to query for unspent transaction
+	outputs:
+	https://api.biteasy.com/blockchain/v1/unspent-outputs
+	*/
+   public static final String UNSPENT_API_URL = "https://omnicha.in/api/v1/address/unspent/";
+   public enum UnspentAPIType {
+	BitEasy,
+	Blockr,
+	Abe
+    };
+	
     enum CoinHash {
         SHA256,
         scrypt,
