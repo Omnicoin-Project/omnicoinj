@@ -22,7 +22,7 @@
     <parent>
         <groupId>com.google</groupId>
         <artifactId>omnicoinj-parent</artifactId>
-        <version>0.12-SNAPSHOT</version>
+        <version>0.2</version>
     </parent>
 
     <artifactId>omnicoinj</artifactId>
@@ -45,8 +45,8 @@
     <!-- Dummy block to make Maven Central happy: authors list is in AUTHORS -->
     <developers>
         <developer>
-            <name>The bitcoinj team</name>
-            <email>bitcoinj@googlegroups.com</email>
+            <name>The omnicoinj team</name>
+            <email>meshcollisiondev@gmail.com</email>
         </developer>
     </developers>
 
